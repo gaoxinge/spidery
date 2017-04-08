@@ -15,9 +15,9 @@ spidery is a microframework for web crawler, and it has many features such as
 
 ## API
 
-### spidery.Spider
+### Spider
 
-spidery.Spider is a consumer class, which dispatches worker to handle the url.
+It is a consumer class, which dispatches worker to handle the url.
 
 ```python
 from spidery import Spider
@@ -27,7 +27,7 @@ spider = Spider( # initialize an instance spider
 )
 ```
 
-- decorator and run method
+- decorator and run
 
 ```python
 from spidery import Spider
@@ -55,7 +55,7 @@ spider.run(5) # open 5 workers
 print sum
 ```
 
-- log method
+- log
 
 ```python
 from spidery import Spider
@@ -63,17 +63,17 @@ spider = Spider([])
 spider.log('step', 'status', 'message')
 ```
 
-- add method
+- add
 
-add method is used to filter and save new url, which is parsed from parse step.
+add is used to filter and save new url, which is parsed from parse step.
 
 - lock
 
-lock is a 'global' in spidery.Spider, and can control the resources.
+lock is a 'global' in Spider, and can control the resources.
 
-### spidery.Item
+### Item
 
-spidery.Item is a tool, which can create a named dictionary, to save structural data. It is inspired by the namedtuple in collections module, and is a metaclass to create dictionary with a name and a fixed field.
+It is a tool, which can create a named dictionary, to save structural data. It is inspired by the namedtuple in collections module, and is a metaclass to create dictionary with a name and a fixed field.
 
 ```python
 from spidery import Item
@@ -88,3 +88,7 @@ question = Question(
 ```
 
 ## TODO
+
+- support python3
+- http preprocessor, like login.
+- use bloomfilter
