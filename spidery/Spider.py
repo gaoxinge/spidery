@@ -87,7 +87,7 @@ class Spider(object):
         flag = True
         
         while True:
-            if self.urls and len(self.filter) < 100:
+            if self.urls:
                 url = self.urls.pop(0)
                 queue.put(url)
                 for _ in workers:
