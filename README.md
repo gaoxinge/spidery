@@ -9,9 +9,9 @@ spidery is a microframework for web crawler, and it has many features such as
 
 ## example
 
-- [stackoverflow](https://github.com/For-Human/spidery/example/stackoverflow.py)
-- [douban](https://github.com/For-Human/spidery/example/douban.py)
-- [github](https://github.com/For-Human/spidery/example/github.py)
+- [stackoverflow](https://github.com/For-Human/spidery/blob/master/example/stackoverflow.py)
+- [douban](https://github.com/For-Human/spidery/blob/master/example/douban.py)
+- [github](https://github.com/For-Human/spidery/blob/master/example/github.py)
 
 ## API
 
