@@ -17,9 +17,63 @@ spidery is a microframework for web crawler, and it has many features such as
 
 ### spidery.Spider
 
+spidery.Spider is a consumer class, which dispatches worker to handle the url.
+
+```python
+from spidery import Spider
+spider = Spider( # initialize an instance spider
+    urls   = ['https://github.com/gaoxinge?tab=following'],
+    filter = set(['https://github.com/gaoxinge?tab=following']),
+)
+```
+
+- decorator and run method
+
+```python
+from spidery import Spider
+
+spider = Spider([_ for _ in range(1000)])
+sum = 0
+
+@spider.http
+def http(url):
+    return url*url
+
+@spider.parse
+def parse(response):
+    global sum
+    spider.lock.acquire()
+    sum += response
+    spider.lock.release()
+    return []
+    
+@spider.save
+def save(item):
+    pass
+    
+spider.run(5) # open 5 workers
+print sum
+```
+
+- log method
+
+```python
+from spidery import Spider
+spider = Spider([])
+spider.log('step', 'status', 'message')
+```
+
+- add method
+
+add method is used to filter and save new url, which is parsed from parse step.
+
+- lock
+
+lock is a 'global' in spidery.Spider, and can control the resources.
+
 ### spidery.Item
 
-Item is a tool, which can create a named dictionary, to save structural data. It is inspired by the namedtuple in collections module, and is a metaclass to create dictionary with a name and a fixed field.
+spidery.Item is a tool, which can create a named dictionary, to save structural data. It is inspired by the namedtuple in collections module, and is a metaclass to create dictionary with a name and a fixed field.
 
 ```python
 from spidery import Item
