@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 import requests
 from lxml import etree
 from collections import defaultdict
-from utils import Spider
+from spidery import Spider
 
 spider = Spider(
     urls=['https://github.com/gaoxinge?tab=following'],
@@ -20,10 +21,11 @@ def http(url):
 def parse(response):
     root = etree.HTML(response.text)
     results = root.xpath('//span[@class=\'link-gray pl-1\']/text()')
-    the = response.url[19:][:-14]
+    name = response.url[19:][:-14]
+    spider.log('parse', 'ok', '\n\n{' + name + ': ' + str(results) + '}\n')
     for result in results:
         spider.lock.acquire()
-        d[the].append(result)
+        d[name].append(result)
         spider.lock.release()
         tmp = 'https://github.com/' + result + '?tab=following'
         spider.add(tmp)
@@ -34,4 +36,3 @@ def save(item):
     pass
 
 spider.run(3)
-print d
