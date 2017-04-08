@@ -69,7 +69,7 @@ add is used to filter and save new url, which is parsed from parse step.
 
 - lock
 
-lock is a 'global' in Spider, and can control the resources.
+lock is 'global' in Spider, and can control the resources.
 
 ### Item
 
