@@ -5,8 +5,8 @@ from collections import defaultdict
 from spidery import Spider
 
 spider = Spider(
-    urls=['https://github.com/gaoxinge?tab=following'],
-    filter=set(['https://github.com/gaoxinge?tab=following']),
+    urls   = ['https://github.com/gaoxinge?tab=following'],
+    filter = set(['https://github.com/gaoxinge?tab=following']),
 )
 d = defaultdict(list)
 
