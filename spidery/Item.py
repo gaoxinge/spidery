@@ -12,13 +12,13 @@ def Item(name, field):
     
     Usage::
         
-        from spider import Item
+        from spidery import Item
         Question = Item('Question', ['votes', 'answers', 'views', 'title', 'link'])
         question = Question()
         question['votes']   = '6210'
         question['answers'] = '33'
         question['views']   = '1246228'
-        question['title']   = 'What does the “yield” keyword do in Python?'
+        question['title']   = 'What does the \'yield\' keyword do in Python?'
         question['link']    = 'http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do-in-python'
     """
 

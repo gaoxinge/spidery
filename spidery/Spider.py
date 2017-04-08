@@ -37,7 +37,7 @@ class Spider(object):
         self.steps = {
             'http':  None,
             'parse': None,
-            'save': None,
+            'save':  None,
         }
     
     def log(self, step, status, message):
