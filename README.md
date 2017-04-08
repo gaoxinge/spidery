@@ -1,18 +1,13 @@
 # spidery
 
 spidery is a microframework for web crawler, and it has features such as
-- from top to bottom design: inspired by [Flask]()
-- light: noly provide a web crawler engine to dispatch works, instead of network library, parser or database connection 
-- structural: provide a metaclass to create named dictionary to save structural data
-- multithread: based on multithread
+- spidery is a top-to-bottom design, which is inspired by [Flask]()
+- it is also light because spidery noly provides a web crawler engine to dispatch works, instead of network library, parser or database connection 
+- it can deal with structural data because it provides a metaclass to create named dictionary with a fixed field to save structural data
+- spidery is based on multithread
 
 ## example
 
-```python
-
-```
-
-- [mathoverflow]()
 - [stackoverflow]()
 - [douban]()
 - [github]()
