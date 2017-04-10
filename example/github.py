@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+"""
+url:   https://github.com
+http:  requests
+parse: lxml
+"""
 import requests
 from lxml import etree
 from collections import defaultdict

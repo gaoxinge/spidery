@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""
+url:   https://stackoverflow.com/questions
+http:  requests
+parse: lxml
+save:  txt
+"""
 import requests
 from lxml import etree
 from spidery import Spider, Item

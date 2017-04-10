@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""
+url:   https://movie.douban.com/tag/2016
+http:  requests
+parse: lxml
+save:  txt
+"""
 import requests
 from lxml import etree
 from spidery import Spider, Item
