@@ -31,13 +31,11 @@ spider = Spider( # initialize an instance spider
 
 ```python
 from spidery import Spider
-
-spider = Spider([_ for _ in range(1000)])
-sum = 0
+spider = Spider([_ for _ in range(10000)])
 
 @spider.http
-def http(url):
-    return url*url
+def http(num):
+    return num*num
 
 @spider.parse
 def parse(response):
@@ -45,12 +43,8 @@ def parse(response):
     spider.lock.acquire()
     sum += response
     spider.lock.release()
-    return []
-    
-@spider.save
-def save(item):
-    pass
-    
+
+sum = 0
 spider.run(5) # open 5 workers
 print sum
 ```
