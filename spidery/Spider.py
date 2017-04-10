@@ -33,7 +33,6 @@ class Spider(object):
         self.urls = urls
         self.filter = filter
         self.lock = threading.Lock()
-        self.config = None
         self.steps = {
             'http':  None,
             'parse': None,
@@ -110,5 +109,3 @@ class Spider(object):
                 if count == num:
                     break
                     
-        if self.config is not None:
-            self.config.close()
