@@ -71,9 +71,11 @@ class Spider(object):
     
     def http_parse_save(self, url):
         response = self.steps['http'](url)
-        items = self.steps['parse'](response)
-        for item in items:
-            self.steps['save'](item)
+        if self.steps['parse']:
+            items = self.steps['parse'](response)
+            if self.steps['save']:
+                for item in items:
+                    self.steps['save'](item)
             
     def run(self, num):
         import Queue

@@ -9,7 +9,6 @@ spider = Spider(
     filter = set(['https://github.com/gaoxinge?tab=following']),
 )
 
-
 @spider.http
 def http(url):
     spider.log('http', 'start', url)
@@ -29,11 +28,6 @@ def parse(response):
         spider.lock.release()
         tmp = 'https://github.com/' + result + '?tab=following'
         spider.add(tmp)
-    return []
-
-@spider.save
-def save(item):
-    pass
 
 d = defaultdict(list)
 spider.run(3)

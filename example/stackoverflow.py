@@ -3,7 +3,9 @@ import requests
 from lxml import etree
 from spidery import Spider, Item
 
-spider = Spider(['http://stackoverflow.com/questions/?page=' + str(i) + '&sort=votes' for i in range(1, 4)])
+spider = Spider(
+    urls = ['http://stackoverflow.com/questions/?page=' + str(i) + '&sort=votes' for i in range(1, 4)],
+)
 
 @spider.http
 def http(url):
@@ -30,6 +32,6 @@ def parse(response):
 def save(item):
     f.write(str(item) + '\n')
 
-f = open('stackoverflow.txt', 'w')
+f = open('stackoverflow.txt', 'wb')
 spider.run(3)
 f.close()

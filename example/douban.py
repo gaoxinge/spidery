@@ -3,8 +3,9 @@ import requests
 from lxml import etree
 from spidery import Spider, Item
 
-spider = Spider(['https://movie.douban.com/tag/2016?start=' + str((i-1)*20) for i in range(1, 30)])
-
+spider = Spider(
+    urls = ['https://movie.douban.com/tag/2016?start=' + str((i-1)*20) for i in range(1, 10)],
+)
 
 @spider.http
 def http(url):
