@@ -4,7 +4,6 @@ from lxml import etree
 from spidery import Spider, Item
 
 spider = Spider(['http://stackoverflow.com/questions/?page=' + str(i) + '&sort=votes' for i in range(1, 4)])
-spider.config = open('stackoverflow.txt', 'w')
 
 @spider.http
 def http(url):
@@ -29,6 +28,8 @@ def parse(response):
 
 @spider.save
 def save(item):
-    spider.config.write(str(item) + '\n')
+    f.write(str(item) + '\n')
 
+f = open('stackoverflow.txt', 'w')
 spider.run(3)
+f.close()

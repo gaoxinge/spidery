@@ -8,7 +8,7 @@ spider = Spider(
     urls   = ['https://github.com/gaoxinge?tab=following'],
     filter = set(['https://github.com/gaoxinge?tab=following']),
 )
-d = defaultdict(list)
+
 
 @spider.http
 def http(url):
@@ -35,4 +35,5 @@ def parse(response):
 def save(item):
     pass
 
+d = defaultdict(list)
 spider.run(3)

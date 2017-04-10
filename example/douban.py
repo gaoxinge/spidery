@@ -4,7 +4,7 @@ from lxml import etree
 from spidery import Spider, Item
 
 spider = Spider(['https://movie.douban.com/tag/2016?start=' + str((i-1)*20) for i in range(1, 30)])
-spider.config = open('douban.txt', 'wb')
+
 
 @spider.http
 def http(url):
@@ -27,6 +27,8 @@ def parse(response):
         
 @spider.save
 def save(item):
-    spider.config.write(str(item) + '\n')
+    f.write(str(item) + '\n')
 
+f = open('douban.txt', 'wb')
 spider.run(3)
+f.close()
