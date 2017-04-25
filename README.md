@@ -38,10 +38,10 @@ def http(num):
     return num*num
 
 @spider.parse
-def parse(response):
+def parse(tmp):
     global sum
     spider.lock.acquire()
-    sum += response
+    sum += tmp
     spider.lock.release()
 
 sum = 0
