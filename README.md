@@ -21,7 +21,7 @@ It is a consumer class, which dispatches worker to handle the url.
 
 ```python
 from spidery import Spider
-spider = Spider( # initialize an instance spider
+spider = Spider( # initialize a spider instance
     urls   = ['https://github.com/gaoxinge?tab=following'],
     filter = set(['https://github.com/gaoxinge?tab=following']),
 )
@@ -84,5 +84,5 @@ question = Question(
 ## TODO
 
 - support python3
-- http preprocessor, like login.
+- http preprocessor, like login
 - use bloomfilter
