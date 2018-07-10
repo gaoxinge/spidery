@@ -1,113 +1,47 @@
 # -*- coding: utf-8 -*-
-import threading
-
-class Worker(threading.Thread):
-    """Worker is a thread class, which is used
-    to handle the url by creating a new thread.
-    
-    :param queue: the tunnel to get the url
-    :param f: the function to handle the url
-    """
-    
-    def __init__(self, queue, f):
-        threading.Thread.__init__(self)
-        self.queue = queue
-        self.f = f
-    
-    def run(self):
-        while True:
-            url = self.queue.get()
-            if url == 'exit':
-                break
-            self.f(url)
 
 class Spider(object):
-    """Spider is a consumer class, which dispatches
-    worker to handle the url.
     
-    :param urls: the initializing urls
-    :parma filter: the initializing filter rule
-    """
-    
-    def __init__(self, urls, filter=None):
+    def __init__(self, urls):
         self.urls = urls
-        self.filter = filter
-        self.lock = threading.Lock()
+        self.filter = set([])
         self.steps = {
-            'http':  None,
-            'parse': None,
-            'save':  None,
+            'fetch':   None,
+            'parse':   None,
+            'presist': None,
         }
-    
-    def log(self, step, status, message):
-        import datetime
-        self.lock.acquire()
-        print '[{a}][{b}][{c}] {d}'.format(
-            a=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            b=step,
-            c=status,
-            d=message,
-        )
-        self.lock.release()
         
-    def http(self, f):
-        self.steps['http'] = f
+    def fetch(self, f):
+        self.steps['fetch'] = f
         return f
         
     def parse(self, f):
         self.steps['parse'] = f
         return f
 
-    def save(self, f):
-        self.steps['save'] = f
+    def presist(self, f):
+        self.steps['presist'] = f
         return f
     
-    def add(self, url):
-        self.lock.acquire()
-        if url not in self.filter:
-            self.urls.append(url)
-            self.filter.add(url)
-        self.lock.release()
-    
-    def http_parse_save(self, url):
-        response = self.steps['http'](url)
-        if self.steps['parse']:
-            items = self.steps['parse'](response)
-            if self.steps['save']:
-                for item in items:
-                    self.steps['save'](item)
-            
-    def run(self, num):
-        import Queue
-        queue = Queue.Queue()
-        workers = []
-        for _ in range(num):
-            worker = Worker(queue, self.http_parse_save)
-            workers.append(worker)
-            worker.start()
-        flag = True
+    def consume_one(self):
+        url = self.urls.pop(0)
         
-        while True:
-            if self.urls:
-                url = self.urls.pop(0)
-                queue.put(url)
-                for _ in workers:
-                    if not _.is_alive():
-                        workers.remove(_)
-                        worker = Worker(queue, self.http_parse_save)
-                        workers.append(worker)
-                        worker.start()
-            elif flag:
-                for _ in range(num):
-                    queue.put('exit')
-                flag = False
-            else:
-                count = 0
-                for _ in workers:
-                    if not _.is_alive():
-                        count += 1
-                    else:
-                        continue
-                if count == num:
-                    break
-                    
+        if self.steps['fetch']:
+            response = self.steps['fetch'](url)
+            
+            if self.steps['parse']:
+                items, urls = self.steps['parse'](response)
+                if urls:
+                    for url in urls:
+                        if url not in self.filter:
+                            self.urls.append(url)
+                            self.filter.add(url)
+
+                if self.steps['presist']:
+                    if items:
+                        for item in items:
+                            self.steps['presist'](item)
+            
+    def consume_all(self):
+        while self.urls:
+            consume_one()
