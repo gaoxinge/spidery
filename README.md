@@ -5,7 +5,6 @@ spidery is a microframework for web crawler, and it has many features such as
 - it is also light because spidery only provides a web crawler engine to dispatch works, instead of other network libraries, parsers or database connections 
 - it can deal with structural data because it provides a metaclass to create named dictionary with a fixed field
 - spidery is based on multithread
-- it supports `pip install spidery`
 
 ## example
 
@@ -80,9 +79,3 @@ question = Question(
     link    = 'http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do-in-python',
 )
 ```
-
-## TODO
-
-- support python3
-- http preprocessor, like login
-- use bloomfilter
