@@ -1,6 +1,6 @@
 # spidery
 
-`spidery` is a microframework for web crawler, with a top-to-bottom design, which is inspired by [flask](https://github.com/pallets/flask) 
+`spidery` is a microframework for web crawler, with a top-to-bottom design, which is inspired by [flask](https://github.com/pallets/flask). 
 
 ## example
 
