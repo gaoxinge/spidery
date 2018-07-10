@@ -6,8 +6,8 @@ class Spider(object):
         self.urls = urls
         self.filter = set([])
         self.steps = {
-            'fetch':   None,
-            'parse':   None,
+            'fetch': None,
+            'parse': None,
             'presist': None,
         }
         
@@ -30,18 +30,19 @@ class Spider(object):
             response = self.steps['fetch'](url)
             
             if self.steps['parse']:
-                items, urls = self.steps['parse'](response)
-                if urls:
-                    for url in urls:
-                        if url not in self.filter:
-                            self.urls.append(url)
-                            self.filter.add(url)
-
-                if self.steps['presist']:
-                    if items:
-                        for item in items:
+                result = self.steps['parse'](response)
+                    
+                for item, urls in result:    
+                    if urls:
+                        for url in urls:
+                            if url not in self.filter:
+                                self.urls.append(url)
+                                self.filter.add(url)
+                    
+                    if item:
+                        if self.steps['presist']:
                             self.steps['presist'](item)
             
     def consume_all(self):
         while self.urls:
-            consume_one()
+            self.consume_one()

@@ -1,43 +1,40 @@
 # -*- coding: utf-8 -*-
 """
-url:   https://stackoverflow.com/questions
-http:  requests
+url: https://stackoverflow.com/questions
+fetch: requests
 parse: lxml
-save:  txt
+presist: txt
 """
 import requests
 from lxml import etree
-from spidery import Spider, Item
+from spidery import Spider
 
 spider = Spider(
     urls = ['http://stackoverflow.com/questions/?page=' + str(i) + '&sort=votes' for i in range(1, 4)],
 )
 
-@spider.http
-def http(url):
-    spider.log('http', 'start', url)
+@spider.fetch
+def fetch(url):
     response = requests.get(url)
-    spider.log('http', 'end', url)
     return response
 
 @spider.parse
 def parse(response):
-    Question = Item('Question', ['votes', 'answers', 'views', 'title', 'link'])
     root = etree.HTML(response.text)
     results = root.xpath('//div[@class=\'question-summary\']')
     for result in results:
-        question = Question()
+        question = {}
         question['votes']   = result.xpath('div[@class=\'statscontainer\']//strong/text()')[0]
         question['answers'] = result.xpath('div[@class=\'statscontainer\']//strong/text()')[1]
         question['views']   = result.xpath('div[@class=\'statscontainer\']/div[@class=\'views supernova\']/text()')[0].strip()
         question['title']   = result.xpath('div[@class=\'summary\']/h3/a/text()')[0]
         question['link']    = result.xpath('div[@class=\'summary\']/h3/a/@href')[0]
-        yield question
+        yield question, None
 
-@spider.save
-def save(item):
+@spider.presist
+def presist(item):
     f.write(str(item) + '\n')
 
 f = open('stackoverflow.txt', 'wb')
-spider.run(3)
+spider.consume_all()
 f.close()
