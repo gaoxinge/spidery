@@ -7,6 +7,6 @@ setup(
     description='a microframework for web crawler',
     author='gaoxinge',
     author_email='gaoxx5@gmail.com',
-    url='https://github.com/For-Human/spidery',
+    url='https://github.com/gaoxinge/spidery',
     packages=['spidery'],
 )
